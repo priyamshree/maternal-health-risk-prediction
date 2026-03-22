@@ -339,6 +339,19 @@ def inject_styles():
     }
     .card:hover { box-shadow: var(--sh-lg); transform: translateY(-2px); }
 
+    /* Hide "Press Enter to apply" message */
+    .stNumberInput div[data-testid="InputInstructions"],
+    .stNumberInput > div > div > div > small,
+    div[data-testid="stNumberInput"] small,
+    div[data-testid="stNumberInputContainer"] ~ small,
+    .stNumberInput small {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
     /* ─── Input columns card ─── */
     [data-testid="stHorizontalBlock"] {
         background: rgba(255,255,255,0.82) !important;
@@ -842,14 +855,14 @@ st.markdown("""
 
 col1, col2, col3 = st.columns(3, gap="large")
 with col1:
-    age      = st.number_input("Age (years)",                    min_value=10,  max_value=60,  value=30)
-    systolic = st.number_input("Systolic Blood Pressure (mmHg)", min_value=80,  max_value=200, value=120)
+    age      = st.number_input("Age (years)",                    min_value=0,   max_value=60,  value=0)
+    systolic = st.number_input("Systolic Blood Pressure (mmHg)", min_value=0,   max_value=200, value=0)
 with col2:
-    diastolic = st.number_input("Diastolic Blood Pressure (mmHg)", min_value=50,  max_value=150, value=80)
-    bs        = st.number_input("Blood Sugar (mmol/L)",             min_value=3.0, max_value=15.0, value=5.5, step=0.1, format="%.1f")
+    diastolic = st.number_input("Diastolic Blood Pressure (mmHg)", min_value=0,   max_value=150, value=0)
+    bs        = st.number_input("Blood Sugar (mmol/L)",             min_value=0.0, max_value=15.0, value=0.0, step=0.1, format="%.1f")
 with col3:
-    temp = st.number_input("Body Temperature (°C)", min_value=35.0, max_value=42.0, value=36.5, step=0.1, format="%.1f")
-    hr   = st.number_input("Heart Rate (bpm)",      min_value=50,  max_value=150, value=80)
+    temp = st.number_input("Body Temperature (°C)", min_value=0.0, max_value=42.0, value=0.0, step=0.1, format="%.1f")
+    hr   = st.number_input("Heart Rate (bpm)",      min_value=0,   max_value=150, value=0)
 
 # ═══════════════════════════════════════════════════════
 #   SECTION 2 — Clinical Reference Ranges
