@@ -107,4 +107,47 @@ plt.tight_layout()
 plt.savefig("outputs/confusion_matrix.png", dpi=300)
 plt.close()
 
+# -------------------------------
+# 5. Bivariate Analysis
+# -------------------------------
+
+# Convert RiskLevel back to labels for better plots
+df["RiskLabel"] = label_encoder.inverse_transform(df["RiskLevel"])
+
+# -------------------------------
+# Systolic BP vs Risk
+# -------------------------------
+plt.figure(figsize=(7,5))
+sns.boxplot(x="RiskLabel", y="SystolicBP", data=df, palette="coolwarm")
+plt.title("Systolic Blood Pressure vs Risk Level")
+plt.tight_layout()
+plt.savefig("outputs/bp_vs_risk.png", dpi=300)
+plt.close()
+
+# -------------------------------
+# Blood Sugar vs Risk
+# -------------------------------
+plt.figure(figsize=(7,5))
+sns.boxplot(x="RiskLabel", y="BS", data=df, palette="viridis")
+plt.title("Blood Sugar vs Risk Level")
+plt.tight_layout()
+plt.savefig("outputs/sugar_vs_risk.png", dpi=300)
+plt.close()
+
+# -------------------------------
+# Age vs Risk
+# -------------------------------
+plt.figure(figsize=(7,5))
+sns.boxplot(x="RiskLabel", y="Age", data=df, palette="Set2")
+plt.title("Age vs Risk Level")
+plt.tight_layout()
+plt.savefig("outputs/age_vs_risk.png", dpi=300)
+plt.close()
+
+print("✅ Bivariate plots saved successfully")
+
+
+
+
+
 print("✅ All visualizations saved in 'outputs/' folder")
