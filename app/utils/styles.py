@@ -172,5 +172,52 @@ def inject_styles():
     .transition-card{background:linear-gradient(135deg,rgba(255,251,235,0.92),rgba(254,243,199,0.92));border:1.5px solid #fcd34d;border-radius:var(--r);padding:1.6rem 2rem;margin-bottom:1.4rem;}
     .app-footer{text-align:center;padding:3rem 1rem 2rem;color:var(--mauve);font-size:0.84rem;letter-spacing:0.03em;line-height:2;border-top:1px solid var(--mauve-lt);margin-top:2rem;}
     @media(max-width:768px){.range-grid{grid-template-columns:repeat(2,1fr);}.hero-title{font-size:2.2rem!important;}.block-container{padding:0 1rem 3rem!important;}.hero-wrap::before,.hero-wrap::after{display:none;}}
+    /* ── NAV BUTTON — never wrap text ── */
+    [data-testid="stHorizontalBlock"] .stButton > button {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        padding: 0.6rem 1rem !important;
+        height: 2.8rem !important;
+        font-size: 0.9rem !important;
+        font-weight: 600 !important;
+        border-radius: 100px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* ── IMAGE INSIGHT CARDS ── */
+    .insight-img-card {
+        background: rgba(255,255,255,0.88);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        padding: 1rem;
+        box-shadow: var(--sh-md);
+        margin-bottom: 0.6rem;
+        transition: box-shadow 0.25s ease, transform 0.2s ease;
+    }
+    .insight-img-card:hover {
+        box-shadow: var(--sh-lg);
+        transform: translateY(-2px);
+    }
+    .insight-img-caption {
+        text-align: center;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: var(--ink-muted);
+        margin-top: 0.6rem;
+        margin-bottom: 0.8rem;
+    }
+
+    /* Override Streamlit's image container inside our card ── */
+    .insight-img-card [data-testid="stImage"],
+    .insight-img-card img {
+        border-radius: 12px;
+        width: 100% !important;
+    }
+
     </style>
     """, unsafe_allow_html=True)

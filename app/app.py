@@ -74,7 +74,7 @@ inject_styles()
 # ═══════════════════════════════════════════════════════
 #   NAVIGATION BAR
 # ═══════════════════════════════════════════════════════
-nav1, nav2, nav3, nav4 = st.columns([2, 1, 1, 1])
+nav1, nav2, nav3, nav4 = st.columns([1.8, 1, 1, 1])
 
 with nav1:
     st.markdown("""
@@ -88,7 +88,7 @@ with nav1:
 
 with nav2:
     if st.button(
-        "📋  Patient Input",
+        "📋 Input",
         key="nav_input",
         use_container_width=True,
         type="primary" if st.session_state.page == "input" else "secondary"
@@ -98,7 +98,7 @@ with nav2:
 
 with nav3:
     has_results   = st.session_state.last_result is not None
-    dash_label    = "📊  Dashboard ●" if has_results else "📊  Dashboard"
+    dash_label    = "📊 Dashboard ●" if has_results else "📊 Dashboard"
     if st.button(
         dash_label,
         key="nav_dashboard",
@@ -110,7 +110,7 @@ with nav3:
 
 with nav4:
     if st.button(
-        "🔬  Model Insights",
+        "🔬 Insights",
         key="nav_insights",
         use_container_width=True,
         type="primary" if st.session_state.page == "insights" else "secondary"
