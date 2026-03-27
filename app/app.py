@@ -3,19 +3,22 @@ app.py  ─  Main entry point for the Maternal Health Risk CDSS.
 
 Folder structure (everything lives inside app/):
   app/
-    app.py                ← this file
+    app.py                    ← this file
     views/
       __init__.py
-      input_page.py       ← Page 1: patient input + prediction pipeline
-      results_page.py     ← Page 2: results dashboard
+      input_page.py           ← Page 1: patient input + prediction pipeline
+      results_page.py         ← Page 2: results dashboard
+      model_insights.py       ← Page 3: model performance & visualisations
     utils/
       __init__.py
-      styles.py           ← inject_styles()
-      dashboard.py        ← KPI cards, charts, insights, transitions
-    models/
-      model.pkl
-      scaler.pkl
-      label_encoder.pkl
+      styles.py               ← inject_styles()
+      dashboard.py            ← KPI cards, charts, insights, transitions
+
+Expected folder structure at project root:
+  Pregnancy Risk/
+    app/          ← run from here: streamlit run app.py
+    models/       ← model.pkl, scaler.pkl, label_encoder.pkl
+    outputs/      ← all 7 visualisation images
 
 Run with:  streamlit run app.py
 """
@@ -25,7 +28,7 @@ import joblib
 import shap
 
 from utils.styles import inject_styles
-from views import input_page, results_page
+from views import input_page, results_page, model_insights
 
 # ═══════════════════════════════════════════════════════
 #   PAGE CONFIG  (must be the very first Streamlit call)
@@ -71,7 +74,7 @@ inject_styles()
 # ═══════════════════════════════════════════════════════
 #   NAVIGATION BAR
 # ═══════════════════════════════════════════════════════
-nav1, nav2, nav3 = st.columns([2, 1, 1])
+nav1, nav2, nav3, nav4 = st.columns([2, 1, 1, 1])
 
 with nav1:
     st.markdown("""
@@ -105,6 +108,16 @@ with nav3:
         st.session_state.page = "results"
         st.rerun()
 
+with nav4:
+    if st.button(
+        "🔬  Model Insights",
+        key="nav_insights",
+        use_container_width=True,
+        type="primary" if st.session_state.page == "insights" else "secondary"
+    ):
+        st.session_state.page = "insights"
+        st.rerun()
+
 st.markdown(
     "<div style='height:1px;background:linear-gradient(90deg,#fecdd6,transparent);"
     "margin-bottom:0.5rem;'></div>",
@@ -133,6 +146,9 @@ elif st.session_state.page == "results":
             st.rerun()
     else:
         results_page.render()
+
+elif st.session_state.page == "insights":
+    model_insights.render()
 
 # ═══════════════════════════════════════════════════════
 #   FOOTER
